@@ -1,7 +1,7 @@
 import {
-  bootPoolManager,
-  controlSession,
-  SessionCallbackException,
+  ContextMode,
+  PuppeteerPool,
+  RunTaskResponse,
 } from '@hoplin/puppeteer-pool';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { loggerMiddleware } from './internal/logger';
@@ -10,8 +10,7 @@ import router from './routes';
 const cors = require('cors');
 
 async function bootstrap() {
-  // Initialize pool
-  await bootPoolManager({
+  const poolInstance = await PuppeteerPool.start(3, ContextMode.ISOLATED, {
     args: [
       '--no-sandbox',
       '--disable-gpu',
@@ -40,8 +39,8 @@ async function bootstrap() {
 
   server.post('/', async (req, res) => {
     const url = req.body.url;
-    try {
-      const htmlContent = await controlSession(async (session) => {
+    const taskResponse: RunTaskResponse<any> = await poolInstance.runTask(
+      async (session) => {
         await session.goto(url, {
           waitUntil: 'networkidle0',
         });
@@ -64,13 +63,13 @@ async function bootstrap() {
           title,
           ogImage,
         };
-      });
-      return res.status(200).json({ result: htmlContent });
-    } catch (err) {
-      if (err instanceof SessionCallbackException) {
-        return res.status(500).json({ result: 'Session timeout' });
-      }
-      return res.status(500).json({ result: 'Fail to get URL' });
+      },
+    );
+    if (taskResponse.success) {
+      return res.status(200).json({ result: taskResponse.data });
+    }
+    if (taskResponse.success === false) {
+      return res.status(500).json({ error: String(taskResponse.error) });
     }
   });
 

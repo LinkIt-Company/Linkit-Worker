@@ -1,26 +1,12 @@
 {
-  "browser_pool": {
-    "min": 2,
-    "max": 3
-  },
   "session_pool": {
-    "min": 5,
-    "max": 6,
-    "width": 1500,
-    "height": 1500,
-    "ignoreResourceLoad": true,
-    "enablePageCache": true
+    "width": 1080,
+    "height": 1024
   },
   "threshold": {
     "activate": true,
-    "interval": 10,
-    "cpu": {
-      "break": 95,
-      "warn": 88
-    },
-    "memory": {
-      "break": 1536,
-      "warn": 800
-    }
+    "interval": 5,
+    "cpu": 80,
+    "memory": 4096
   }
 }
