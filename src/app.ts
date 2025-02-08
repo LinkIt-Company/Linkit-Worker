@@ -4,28 +4,36 @@ import {
   RunTaskResponse,
 } from '@hoplin/puppeteer-pool';
 import express, { Application, NextFunction, Request, Response } from 'express';
+import { LogLevel } from '@hoplin/puppeteer-pool/dist/logger';
 import { loggerMiddleware } from './internal/logger';
 import { startServer } from './internal/process';
 import router from './routes';
 const cors = require('cors');
 
 async function bootstrap() {
-  const poolInstance = await PuppeteerPool.start(3, ContextMode.ISOLATED, {
-    args: [
-      '--no-sandbox',
-      '--disable-gpu',
-      '--disable-setuid-sandbox',
-      '--disable-gpu',
-      '--disable-software-rasterizer',
-      '--disable-dev-shm-usage',
-      '--disable-background-networking',
-      '--disable-default-apps',
-      '--disable-extensions',
-      '--disable-sync',
-      '--disable-translate',
-    ],
+  const configPath = process.cwd() + '/puppeteer-pool-config.json';
+  const poolInstance = await PuppeteerPool.start({
+    concurrencyLevel: 6,
+    contextMode: ContextMode.ISOLATED,
+    options: {
+      args: [
+        '--no-sandbox',
+        '--disable-gpu',
+        '--disable-setuid-sandbox',
+        '--disable-gpu',
+        '--disable-software-rasterizer',
+        '--disable-dev-shm-usage',
+        '--disable-background-networking',
+        '--disable-default-apps',
+        '--disable-extensions',
+        '--disable-sync',
+        '--disable-translate',
+      ],
+    },
+    customConfigPath: configPath,
+    enableLog: true,
+    logLevel: LogLevel.DEBUG,
   });
-
   const server: Application = express();
 
   // Base Middleware

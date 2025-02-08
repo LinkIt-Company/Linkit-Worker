@@ -173,16 +173,12 @@
   resolved "https://registry.yarnpkg.com/@eslint/object-schema/-/object-schema-2.1.4.tgz#9e69f8bb4031e11df79e03db09f9dbbae1740843"
   integrity sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==
 
-"@hoplin/puppeteer-pool@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/@hoplin/puppeteer-pool/-/puppeteer-pool-2.0.7.tgz#e14a6c69807ff1c4e77d2d5820576f05ab45b0cf"
-  integrity sha512-xgCwhutanSgmtxDpzRHVGZIWhSLjoAxXfDZ7Yn1JNF8lIbznj1iuZWI5u7Fo/0MWQz2AW5qCUYr60JXXpBWM3w==
+"@hoplin/puppeteer-pool@^2.0.8-beta":
+  version "2.0.8-beta"
+  resolved "https://registry.yarnpkg.com/@hoplin/puppeteer-pool/-/puppeteer-pool-2.0.8-beta.tgz#489c40b8c6c7a965deffeacf428663fcf67559b6"
+  integrity sha512-C1saTLyYCFEoZXS03F570QzXp2b6I9QVfxbLnMBETHt9FDU3e1ECRMU0WXIvgl2I/aXrK8ie9AnPp0elCWzeKw==
   dependencies:
-    "@types/pino" "^7.0.5"
-    "@types/pino-pretty" "^5.0.0"
     pidusage "^3.0.2"
-    pino "^9.3.2"
-    pino-pretty "^11.2.2"
     reflect-metadata "^0.2.2"
 
 "@humanwhocodes/module-importer@^1.0.1":

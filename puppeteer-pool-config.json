@@ -4,7 +4,7 @@
     "height": 1024
   },
   "threshold": {
-    "activate": true,
+    "activate": false,
     "interval": 5,
     "cpu": 80,
     "memory": 4096
